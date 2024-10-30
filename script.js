@@ -83,6 +83,7 @@ document.addEventListener('DOMContentLoaded', function(event){
 
                     const nuevaCantidad = Math.max(0, parseInt(inputCantidad.value) || 0);
                     prods.cantidad = nuevaCantidad;
+                    
                     if(nuevaCantidad === 1){
                         carrito.agregarProducto(prods);
                     }
@@ -93,10 +94,21 @@ document.addEventListener('DOMContentLoaded', function(event){
                     if (nuevaCantidad === 0) {
                         carrito.eliminarProducto(prods.sku);
                     }
-                    
                     actualizarTotal();
                     mostrarCarrito();
                 });
+
+                // con este evento KEYDOWN podemos hacer que al pusar una tecla en el campo input, 
+                // en este caso el signo negativo, va a evitar que se escriba evitando poder tener
+                // valores negativos
+
+                inputCantidad.addEventListener('keydown', function(e) {
+                   
+                    if (e.key === '-') {
+                        e.preventDefault();
+                    }
+                });
+
                 cantidadDiv.append(buttonMenos, inputCantidad, buttonMas);
                 cantidad.appendChild(cantidadDiv);
 
